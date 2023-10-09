@@ -1,12 +1,15 @@
 import os
 import sys
+import enum
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
 from eralchemy2 import render_er
 
 Base = declarative_base()
-
+class Gender(enum.Enum):
+    male = "Male"
+    female = "Female" 
 
 class User(Base):
     __tablename__ = 'user'
@@ -25,7 +28,7 @@ class Post(Base):
 class Media(Base):
     __tablename__='media'
     id = Column(Integer, primary_key=True)
-    type= Column(enum)
+    type= Column(enum.Enum(Gender))
     ulr = Column(String)
     post_id = Column(Integer, ForeignKey('post.id'))
     post = relationship(Post)
